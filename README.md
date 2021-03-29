@@ -16,7 +16,9 @@
   * Be sure to replace the IP parameter
 * The client script should detect the failover in 6-8 seconds and reconnect
 * Stop the client script
-* Comment out the `await listenForMasterSwitch(sentinels, client)` line
+* Comment out the `await listenForMasterSwitch(sentinels, client)` line (in `node/client.js`)
 * Restart the client script
 * Initiate failover again, but with the new master IP
-* The client script should hang for 30 seconds, send a few requests to the old master and then reconnect to the new one
+* The client script should lose connection for 30 seconds, send a few requests to the old master and then reconnect to the new one
+  * If a larger number than 30 is used in the failover command, the connection will be lost for longer
+  * But with `listenForMasterSwitch`, the delay seems related only to the sentinel's `down-after-milliseconds` setting, which in this repo is 5000
