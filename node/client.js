@@ -82,6 +82,9 @@ const listenForMasterSwitch = async (sentinels, client) => {
         // redis.disconnect(true)
 
         console.log(time(), 'Got switch-master message from sentinel, disconnecting client')
+
+        // Internal and undocumented fields and methods.
+        // Not safe to use from outside ioredis.
         client.connector.stream.destroy()
       }
     })
