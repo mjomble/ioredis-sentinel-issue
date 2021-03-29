@@ -72,6 +72,8 @@ const listenForMasterSwitch = async (sentinels, client) => {
       // message example: 'mymaster 172.26.0.4 6379 172.26.0.3 6379'
       const [masterName, oldIp, oldPort, newIp, newPort] = message.split(' ')
 
+      // We get the same message from multiple sentinels.
+      // Make sure we only disconnect once per failover.
       if (newIp !== lastMasterIp || newPort !== lastMasterPort) {
         lastMasterIp = newIp
         lastMasterPort = newPort
