@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  redis-main:
+    image: redis:5
+  replica:
+    image: redis:5
+    command: redis-server --replicaof redis-main 6379
+    links:
+      - redis-main
+  sentinel:
+    build: sentinel
+    links:
+      - redis-main
+      - replica
+  redis-cli:
+    image: redis:5
+    links:
+      - redis-main
+      - replica
+      - sentinel
+  nodejs:
+    image: node:14
+    links:
+      - redis-main
+      - replica
+      - sentinel
+    volumes:
+      - ./node:/node
