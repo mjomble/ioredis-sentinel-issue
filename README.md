@@ -8,7 +8,7 @@
 
 ## Executing the test
 * The cluster must be running
-* In one terminal, start the client script: `docker-compose run --rm nodejs node node/client.js`
+* In one terminal, start the client script: `docker-compose exec nodejs node node/client.js`
 * Note the IP of the current master that SentinelConnector resolves
   * Alternatively, get it via `docker-compose exec sentinel redis-cli -p 26379 sentinel get-master-addr-by-name mymaster`
 * Wait for it to make a few requests

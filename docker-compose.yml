@@ -26,3 +26,4 @@ services:
       - sentinel
     volumes:
       - ./node:/node
+    command: ['sleep', 'infinity']
